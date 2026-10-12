@@ -1,0 +1,48 @@
+# Python environments, caches, and build outputs
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Local credentials and machine-specific deployment state
+.env
+.env.*
+*.env
+!*.env.example
+!*.env.sample
+!.env.example
+!.env.sample
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+.ssh/
+.aws/
+deployment/ssh-known-hosts
+deployment/generated/
+deployment/legacy-inventory.json
+
+# Original legacy servers contain embedded credentials; keep local copies
+/map-server.txt
+/monitor-server.txt
+
+# Local report drafts and office temporary files
+/report/
+~$*
+*.tmp
+*.log
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
