@@ -1,0 +1,182 @@
+#include <SoftwareSerial.h>
+#include <MD_MAX72xx.h>
+#include <SPI.h>
+
+#define HARDWARE_TYPE MD_MAX72XX::FC16_HW
+#define MAX_DEVICES   4
+
+#define DATA_PIN 11
+#define CS_PIN   10
+#define CLK_PIN  13
+
+// MAX7219: DIN -> D11, CLK -> D13, CS -> D10
+MD_MAX72XX mx = MD_MAX72XX(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
+
+// HC-06 / HMSoft: TX -> D8, RX -> D9
+SoftwareSerial BT(8, 9); // RX, TX
+
+// Баруун сум →
+const byte arrowRight[8] = {
+  B00011000,
+  B00011100,
+  B11111110,
+  B11111111,
+  B11111110,
+  B00011100,
+  B00011000,
+  B00000000
+};
+
+// Зүүн сум ←
+const byte arrowLeft[8] = {
+  B00011000,
+  B00111000,
+  B01111111,
+  B11111111,
+  B01111111,
+  B00111000,
+  B00011000,
+  B00000000
+};
+
+void setup() {
+  Serial.begin(9600);
+  BT.begin(9600);
+
+  mx.begin();
+  mx.control(MD_MAX72XX::INTENSITY, 5);
+  mx.clear();
+  mx.update();
+
+  Serial.println("READY");
+}
+
+void loop() {
+  readBluetooth();
+
+  // USB Serial Monitor-оос бас шалгаж болно
+  if (Serial.available()) {
+    char c = Serial.read();
+    handleCommand(c);
+  }
+}
+
+void readBluetooth() {
+  while (BT.available()) {
+    char c = BT.read();
+
+    Serial.print("BT received: ");
+    Serial.println(c);
+
+    handleCommand(c);
+  }
+}
+
+void handleCommand(char c) {
+  c = toupper(c);
+
+  if (c == '\n' || c == '\r' || c == ' ') {
+    return;
+  }
+
+  if (c == 'L') {
+    drawArrow(true);
+    Serial.println("LEFT");
+  }
+  else if (c == 'R') {
+    drawArrow(false);
+    Serial.println("RIGHT");
+  }
+  else if (c == 'S') {
+    fillAll();
+    Serial.println("STOP -> ALL ON");
+  }
+  else {
+    Serial.print("Unknown command: ");
+    Serial.println(c);
+  }
+}
+
+// Бүх LED асаах
+void fillAll() {
+  mx.clear();
+
+  for (int col = 0; col < MAX_DEVICES * 8; col++) {
+    for (int row = 0; row < 8; row++) {
+      mx.setPoint(row, col, true);
+    }
+  }
+
+  mx.update();
+}
+
+// 4 module-ийн голд сум зурах
+void drawArrow(bool right) {
+  mx.clear();
+
+  int width = 24;                 // сумны нийт урт
+  int offset = (MAX_DEVICES * 8 - width) / 2;  // голлуулах
+
+  if (right) {
+    // Гол шугам
+    for (int col = 0; col < 18; col++) {
+      mx.setPoint(3, offset + col, true);
+      mx.setPoint(4, offset + col, true);
+    }
+
+    // Баруун сумны толгой
+    for (int i = 0; i < 6; i++) {
+      int col = offset + 18 + i;
+
+      mx.setPoint(3, col, true);
+      mx.setPoint(4, col, true);
+
+      if (i < 5) {
+        mx.setPoint(2, col, true);
+        mx.setPoint(5, col, true);
+      }
+
+      if (i < 3) {
+        mx.setPoint(1, col, true);
+        mx.setPoint(6, col, true);
+      }
+
+      if (i == 0) {
+        mx.setPoint(0, col, true);
+        mx.setPoint(7, col, true);
+      }
+    }
+  } 
+  else {
+    // Гол шугам
+    for (int col = 6; col < 24; col++) {
+      mx.setPoint(3, offset + col, true);
+      mx.setPoint(4, offset + col, true);
+    }
+
+    // Зүүн сумны толгой
+    for (int i = 0; i < 6; i++) {
+      int col = offset + 5 - i;
+
+      mx.setPoint(3, col, true);
+      mx.setPoint(4, col, true);
+
+      if (i < 5) {
+        mx.setPoint(2, col, true);
+        mx.setPoint(5, col, true);
+      }
+
+      if (i < 3) {
+        mx.setPoint(1, col, true);
+        mx.setPoint(6, col, true);
+      }
+
+      if (i == 0) {
+        mx.setPoint(0, col, true);
+        mx.setPoint(7, col, true);
+      }
+    }
+  }
+
+  mx.update();
+}

@@ -1,0 +1,14 @@
+# Keep source files portable between Windows and Jetson/Linux.
+* text=auto
+.gitattributes text eol=lf
+.gitignore text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.ino text eol=lf
+*.example text eol=lf

@@ -1,0 +1,21 @@
+/* Retain the original monitoring/control panel's dark cards and button colors. */
+body {font-family: Arial, sans-serif; background: #101010; color: white; text-align: center; padding: 25px;}
+.box {max-width: 760px; margin: auto; background: #1d1d1d; padding: 22px; border-radius: 16px;}
+button {min-width: 145px; min-height: 55px; margin: 8px; padding: 8px; font-size: 18px; border: none; border-radius: 10px; cursor: pointer;}
+button:disabled {opacity: .45; cursor: wait;}
+.on {background: #2ecc71;} .off {background: #e74c3c; color: white;}
+.door {background: #3498db; color: white;} .dir {background: #f1c40f;}
+.stop {background: #e67e22; color: white;} .etc {background: #9b59b6; color: white;}
+a {color: #00d5ff; text-decoration: none;}
+.grid {display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px;}
+.card {background: #000; padding: 16px; border-radius: 12px; border: 1px solid #333;}
+.label {color: #aaa; font-size: 14px;}
+.value {font-size: 24px; font-weight: bold; margin-top: 6px; overflow-wrap: anywhere;}
+.ok {color: #2ecc71;} .bad {color: #e74c3c;} .warn {color: #f1c40f;}
+.status-main {font-size: 24px; font-weight: bold; margin: 15px;}
+pre {text-align: left; background: #000; color: #0f0; padding: 15px; border-radius: 10px; overflow-x: auto; margin-top: 20px; white-space: pre-wrap; overflow-wrap: anywhere;}
+.note {color: #ccc; font-size: 14px; line-height: 1.5;}
+.login {max-width: 400px;} .login label {display: block; margin-top: 16px;}
+input {box-sizing: border-box; width: 85%; height: 40px; margin: 8px; font-size: 18px; border-radius: 8px; border: none; padding-left: 10px;}
+.login-button {display: inline-block; background: #007c8a; color: white; padding: 16px; border-radius: 12px; margin-top: 10px;}
+@media (max-width: 520px) {body {padding: 8px;} .box {padding: 12px;} .grid {grid-template-columns: 1fr;} button {min-width: 120px;}}

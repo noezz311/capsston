@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAP Monitoring</title><link rel="stylesheet" href="/static/style.css"></head>
+<body data-page="monitor"><div class="box">
+<h1>MAP Monitoring</h1><p>Control service / ROS controller status:</p>
+<div id="control_status" class="status-main warn" role="status">Checking...</div>
+<div class="grid">
+<div class="card"><div class="label">Relay output command</div><div id="relay" class="value">-</div></div>
+<div class="card"><div class="label">Door physical state</div><div id="door_status" class="value">UNKNOWN</div></div>
+<div class="card"><div class="label">Last door command sent</div><div id="door_last_command" class="value">-</div></div>
+<div class="card"><div class="label">LED display command</div><div id="direction_status" class="value">-</div></div>
+<div class="card"><div class="label">BLE Door</div><div id="door_ble" class="value">-</div></div>
+<div class="card"><div class="label">BLE LED display</div><div id="direction_ble" class="value">-</div></div>
+<div class="card"><div class="label">Last Command</div><div id="last_command" class="value">-</div></div>
+</div><p class="note">Door physical state requires sensor confirmation. S is an LED display command, not a motor emergency stop.</p>
+<pre id="detail">Loading...</pre><p><a class="login-button" href="/login">Login хийж remote control руу орох</a></p>
+</div><script>window.CAPSTONE = __CAPSTONE_CONFIG__;</script><script src="/static/app.js"></script></body></html>

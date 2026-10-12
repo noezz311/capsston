@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAP Remote Control</title><link rel="stylesheet" href="/static/style.css"></head>
+<body data-page="control"><div class="box">
+<h1>MAP Remote Control</h1>
+<p><a id="monitorLink" href="#">Monitor</a> | <a href="/logout">Logout</a></p>
+<div id="control_status" class="status-main warn" role="status">Checking ROS controller...</div>
+<h2>Relay</h2><button class="on" data-cmd="on">ON</button><button class="off" data-cmd="off">OFF</button>
+<h2>Door</h2><button class="door" data-cmd="open">OPEN</button><button class="door" data-cmd="close">CLOSE</button>
+<h2>LED direction display</h2><button class="dir" data-cmd="left">LEFT</button><button class="stop" data-cmd="stop">LED S (ALL ON)</button><button class="dir" data-cmd="right">RIGHT</button>
+<p class="note">The legacy STOP / S command lights the LED display. It is not a motor emergency stop.</p>
+<h2>System</h2><button class="etc" data-cmd="reconnect">RECONNECT</button>
+<h2>Status</h2><div class="grid">
+<div class="card"><div class="label">Relay output command</div><div id="relay" class="value">-</div></div>
+<div class="card"><div class="label">Door physical state</div><div id="door_status" class="value">UNKNOWN</div></div>
+<div class="card"><div class="label">Last door command sent</div><div id="door_last_command" class="value">-</div></div>
+<div class="card"><div class="label">LED display command</div><div id="direction_status" class="value">-</div></div>
+<div class="card"><div class="label">BLE Door</div><div id="door_ble" class="value">-</div></div>
+<div class="card"><div class="label">BLE LED display</div><div id="direction_ble" class="value">-</div></div>
+<div class="card"><div class="label">Last Command</div><div id="last_command" class="value">-</div></div>
+</div><p class="note">BLE write success confirms a command was sent, not that the door moved. No position sensor is configured.</p>
+<pre id="command_result" aria-live="polite">Ready</pre><pre id="detail">Loading...</pre>
+</div><script>window.CAPSTONE = __CAPSTONE_CONFIG__;</script><script src="/static/app.js"></script></body></html>

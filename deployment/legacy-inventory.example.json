@@ -1,0 +1,10 @@
+{
+  "reviewed": false,
+  "external_startup_checked": false,
+  "services": [],
+  "process_patterns": [
+    "(?:^|[/\\\\\\s])map[-_]server\\.(?:py|txt)(?:\\s|$)",
+    "(?:^|[/\\\\\\s])(?:main1|old_main)\\.(?:py|txt)(?:\\s|$)"
+  ],
+  "notes": "Fill actual old system service names after reviewing system/user units, cron, rc.local, shell sessions, containers and supervisor. Stop and mask them before setting reviewed and external_startup_checked true. An empty list means an explicit verified finding of no old services, not unknown inventory."
+}
